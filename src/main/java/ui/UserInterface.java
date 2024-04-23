@@ -1,11 +1,13 @@
 package ui;
 
+import domain.Board;
+
 public class UserInterface {
 
-    public Integer[] positions;
+    public Board board;
 
-    public UserInterface(Integer[] positions) {
-        this.positions = positions;
+    public UserInterface(Board board) {
+        this.board = board;
     }
 
     public void start() {
@@ -18,30 +20,7 @@ public class UserInterface {
     }
 
     public void printBoard() {
-        System.out.println();
-        System.out.println("         —————————————");
-        for (int i = 0; i < 9; i++) {
-
-            if (i == 0 || i == 3 || i == 6){
-                System.out.print("         | ");
-            }
-
-
-            if (positions[i] == 0) {
-                System.out.print(i+1);
-            } else if (positions[i] == 1) {
-                System.out.print("X");
-            } else {
-                System.out.print("O");
-            }
-
-            if (i == 2 || i == 5 || i == 8) {
-                System.out.print(" |\n");
-                System.out.println("         —————————————");
-            } else {
-                System.out.print(" - ");
-            }
-        }
+        System.out.println(board.toString());
     }
 
     public void printTurn(boolean player1_turn) {
