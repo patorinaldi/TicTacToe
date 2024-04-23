@@ -53,12 +53,6 @@ public class TicTacToe {
         }
     }
 
-//    public void initializeGameBoard() {
-//        for (int i = 0; i < 9; i++) {
-//            positions[i] = 0;
-//        }
-//    }
-
     public void check() {
         if (player1_turn && ((board.getMove(0) == 'X') && (board.getMove(1) == 'X') && (board.getMove(2) == 'X')
                 || ((board.getMove(3) == 'X') && (board.getMove(4) == 'X') && (board.getMove(5) == 'X'))
