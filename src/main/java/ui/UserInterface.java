@@ -1,12 +1,13 @@
 package ui;
 
 import domain.Board;
+import domain.Player;
 
 public class UserInterface {
 
     public Board board;
 
-    public UserInterface(Board board) {
+    public void setBoard(Board board) {
         this.board = board;
     }
 
@@ -25,19 +26,18 @@ public class UserInterface {
 
     public void printTurn(boolean player1_turn) {
         if (player1_turn) {
-            System.out.println("\n         Player 1 turn.");
+            System.out.println("\n          Player turn");
             System.out.print("        Enter next move: ");
         } else {
-            System.out.println("\n         Player 2 turn.");
-            System.out.print("        Enter next move: ");
+            System.out.println("\n         Computer turn:\n");
         }
     }
 
     public void printWinner(boolean player1_turn) {
         if(player1_turn) {
-            System.out.println("\n       ¡¡PLAYER 1 WIN!!");
+            System.out.println("\n       ¡¡PLAYER 1 WINS!!");
         } else {
-            System.out.println("\n       ¡¡PLAYER 2 WIN!!");
+            System.out.println("\n       ¡¡COMPUTER WINS!!");
         }
     }
 
@@ -51,5 +51,39 @@ public class UserInterface {
 
     public void printNotEmpty() {
         System.out.println("\n  Please enter an empty position.");
+    }
+
+    public void printPlayAgain() {
+        System.out.print("\nPlay Again? (Y-y) (N-n): ");
+    }
+
+    public void printGoodbye(Player player1, Player player2) {
+        if (player1.getWins() == player2.getWins()) {
+            System.out.println("\n      ¡¡IT'S A DRAW!!");
+        } else if (player1.getWins() > player2.getWins()) {
+            System.out.println("\n ¡¡PLAYER 1 WINS THE GAME!!");
+        } else {
+            System.out.println("\n ¡¡COMPUTER WINS THE GAME!!");
+        }
+        System.out.println("\n Thank you for playing! Bye!");
+    }
+
+    public void askSymbols(boolean player1_turn) {
+        if (player1_turn) {
+            System.out.print("\n Enter symbol for player 1: ");
+        } else {
+            System.out.print("\n Enter symbol for player 2: ");
+        }
+    }
+
+    public void printScore(Player player1, Player player2) {
+        System.out.println("\n Score:");
+        System.out.println("\n Player 1: " + player1.getWins() + " wins");
+        System.out.println("\n Computer: " + player2.getWins() + " wins");
+    }
+
+    public void askDifficulty() {
+        System.out.println("\n Choose difficulty: \n1 - Easy \n2 - Hard");
+        System.out.print("> ");
     }
 }

@@ -1,92 +1,133 @@
 package logic;
 
+import domain.AI;
 import domain.Board;
+import domain.Player;
 import ui.UserInterface;
 
 import java.util.Scanner;
 
 public class TicTacToe {
 
-    private final UserInterface ui;
+    private UserInterface ui;
     private boolean player1_turn;
-    private int count;
     public Scanner scanner;
     private final Board board;
+    private Player player1;
+    private AI ai;
+    private final int difficulty;
 
     public TicTacToe() {
-        player1_turn = true;
-        board = new Board(9);
-        board.initialize();
-        ui = new UserInterface(board);
-        ui.start();
+        this.ui = new UserInterface();
         this.scanner = new Scanner(System.in);
+        board = new Board(3);
+        board.initialize();
+        ui.setBoard(board);
+        ui.start();
+        player1_turn = true;
+        ui.askDifficulty();
+        difficulty = Integer.parseInt(scanner.nextLine());
+        getSymbols();
+
+        board.setPlayer1(player1);
+        board.setPlayer2(ai);
+    }
+
+    public void getSymbols() {
+        for (int i = 0; i < 2; i++) {
+            ui.askSymbols(player1_turn);
+            String input = scanner.nextLine();
+            if (player1_turn){
+                player1 = new Player(input.charAt(0));
+                player1_turn = false;
+            } else {
+                if (difficulty == 1) {
+                    ai = new AI(board, true, input.charAt(0));
+                } else {
+                    ai = new AI(board, false, input.charAt(0));
+                }
+                player1_turn = true;
+            }
+        }
     }
 
     public void startGame() {
+
         while (true) {
 
+
             ui.printBoard();
 
-            ui.printTurn(player1_turn);
+            if (player1_turn) {
 
-            int position;
-            try {
-                position = Integer.parseInt(scanner.nextLine()) - 1;
-            } catch (NumberFormatException e) {
-                ui.printError();
-                continue;
-            }
+                while (true) {
+                    ui.printTurn(player1_turn);
 
-            if (position < 0 || position > 8) {
-                ui.printError();
-                continue;
-            }
+                    int position;
+                    try {
+                        position = Integer.parseInt(scanner.nextLine());
+                    } catch (NumberFormatException e) {
+                        ui.printError();
+                        continue;
+                    }
+                    if (position < 1 || position > 9) {
+                        ui.printError();
+                        continue;
+                    }
 
-            if (board.getMove(position) == ' ') {
-                board.addMove(player1_turn, position);
-                check();
-                player1_turn = !player1_turn;
-                count++;
+                    if (board.getMove(position) == ' ') {
+
+                        board.addMove(player1.getSymbol(), position);
+                        break;
+                    } else {
+                        ui.printNotEmpty();
+                    }
+                }
             } else {
-                ui.printNotEmpty();
+                ui.printTurn(player1_turn);
+                int position = ai.move();
+                board.addMove(ai.getSymbol(), position);
             }
+
+            if (board.checkGameOver() == 0) {
+                ui.printBoard();
+                ui.printDraw();
+                ui.printScore(player1, ai);
+                playAgain();
+            } else if (board.checkGameOver() == 1 || board.checkGameOver() == -1) {
+                ui.printBoard();
+                ui.printWinner(player1_turn);
+                roundWinner();
+                ui.printScore(player1, ai);
+                playAgain();
+            }
+            player1_turn = !player1_turn;
+
         }
     }
 
-    public void check() {
-        if (player1_turn && ((board.getMove(0) == 'X') && (board.getMove(1) == 'X') && (board.getMove(2) == 'X')
-                || ((board.getMove(3) == 'X') && (board.getMove(4) == 'X') && (board.getMove(5) == 'X'))
-                || ((board.getMove(6) == 'X') && (board.getMove(7) == 'X') && (board.getMove(8) == 'X'))
-                || ((board.getMove(0) == 'X') && (board.getMove(3) == 'X') && (board.getMove(6) == 'X'))
-                || ((board.getMove(1) == 'X') && (board.getMove(4) == 'X') && (board.getMove(7) == 'X'))
-                || ((board.getMove(2) == 'X') && (board.getMove(5) == 'X') && (board.getMove(8) == 'X'))
-                || ((board.getMove(0) == 'X') && (board.getMove(4) == 'X') && (board.getMove(8) == 'X'))
-                || ((board.getMove(6) == 'X') && (board.getMove(4) == 'X') && (board.getMove(2) == 'X'))
-        ))
-        {
-            ui.printBoard();
-            ui.printWinner(player1_turn);
-            System.exit(0);
-
-        } else if (((board.getMove(0) == 'O') && (board.getMove(1) == 'O') && (board.getMove(2) == 'O')
-                || ((board.getMove(3) == 'O') && (board.getMove(4) == 'O') && (board.getMove(5) == 'O'))
-                || ((board.getMove(6) == 'O') && (board.getMove(7) == 'O') && (board.getMove(8) == 'O'))
-                || ((board.getMove(0) == 'O') && (board.getMove(3) == 'O') && (board.getMove(6) == 'O'))
-                || ((board.getMove(1) == 'O') && (board.getMove(4) == 'O') && (board.getMove(7) == 'O'))
-                || ((board.getMove(2) == 'O') && (board.getMove(5) == 'O') && (board.getMove(8) == 'O'))
-                || ((board.getMove(0) == 'O') && (board.getMove(4) == 'O') && (board.getMove(8) == 'O'))
-                || ((board.getMove(6) == 'O') && (board.getMove(4) == 'O') && (board.getMove(2) == 'O'))
-        )) {
-            ui.printBoard();
-            ui.printWinner(player1_turn);
+    public void playAgain() {
+        ui.printPlayAgain();
+        String input = scanner.nextLine();
+        if (input.length() > 1) {
+            ui.printPlayAgain();
+        } else if (input.equalsIgnoreCase("y")) {
+            board.initialize();
+            player1_turn = !player1_turn;
+            startGame();
+        } else if (input.equalsIgnoreCase("n")) {
+            ui.printGoodbye(player1, ai);
             System.exit(0);
         }
 
+    }
 
-        if (count == 8) {
-            ui.printBoard();
-            ui.printDraw();
-            System.exit(0);
+    public void roundWinner() {
+        if (player1_turn) {
+            player1.addWin();
+        } else {
+            ai.addWin();
         }
     }
+
 }
