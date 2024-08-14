@@ -1,13 +1,15 @@
-TicTacToe - CS50 Final Project
+# TicTacToe - CS50 Final Project
+###
 
-Welcome to TicTacToe, a classic game reimagined with a twist of AI! This project, written in Java, is my final project for the CS50 course. It allows you to play TicTacToe against an AI with two difficulty levels: Easy and Hard. Challenge yourself to see if you can outsmart the AI or just enjoy a casual game with a friend.
-Features
+### Desciption: 
+
+Welcome to TicTacToe, a classic game with a twist of AI! This project, written in Java, is my final project for the CS50 course. It allows you to play TicTacToe against an AI with two difficulty levels: Easy and Hard. Challenge yourself to see if you can outsmart the AI or just enjoy a casual easy game.
+#### Features
 🎮 Game Modes
 
     Single Player Mode: Play against the AI with two difficulty levels:
         Easy Mode: The AI plays randomly 50% of the time, giving you a chance to outwit it.
         Hard Mode: The AI uses the MINIMAX algorithm to play a perfect game. Good luck beating it!
-    Two Player Mode: Play against a friend in a classic TicTacToe match.
 
 🧠 AI Implementation
 
@@ -17,8 +19,9 @@ Features
 How to Play
 
     Launch the Game: Run the program from your IDE or terminal.
-    Choose Game Mode: Select between playing against the AI (Easy or Hard) or against a friend.
-    Make Your Move: Click on the grid to place your X or O. The AI or your friend will respond with their move.
+    Choose Game Mode: Select between playing against the AI (Easy or Hard).
+    Choose symbols: You can choose what symbol each player will use. 
+    Make Your Move: Type 1-9 to make your move and press enter.
     Win the Game: Get three in a row horizontally, vertically, or diagonally to win!
 
 Getting Started
@@ -28,23 +31,23 @@ Prerequisites
 
 Installation
 
-    Clone the repository:
+Clone the repository:
 
-    bash
+bash
 
-git clone https://github.com/yourusername/TicTacToe.git
+    `git clone https://github.com/yourusername/TicTacToe.git`
 
 Navigate to the project directory:
 
 bash
 
-cd TicTacToe
+    `cd TicTacToe`
 
 Compile the Java files:
 
 bash
 
-javac TicTacToe.java
+    `javac TicTacToe.java`
 
 Run the game:
 
@@ -53,5 +56,18 @@ bash
     java TicTacToe
 
 Screenshots
+
+
+![imagen](https://github.com/user-attachments/assets/92cdbfad-6b0a-4cc0-9d2c-8838fb9fa29c)
+
+
+![imagen](https://github.com/user-attachments/assets/31ca54e6-5b26-4d10-866e-58be54b86a0c)
+
+
+![imagen](https://github.com/user-attachments/assets/0c47be83-de8b-42e5-849b-4745442a9249)
+
+
+![imagen](https://github.com/user-attachments/assets/535edc11-ee41-400b-9242-f5f71bf20a46)
+
 
 
