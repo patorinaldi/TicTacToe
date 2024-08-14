@@ -4,8 +4,29 @@
 
 ### Desciption: 
 
-Welcome to TicTacToe, a classic game with a twist of AI! This project, written in Java, is my final project for the CS50 course. It allows you to play TicTacToe against an AI with two difficulty levels: Easy and Hard. Challenge yourself to see if you can outsmart the AI or just enjoy a casual easy game.
+Welcome to TicTacToe, a classic game with a twist of AI! This project, written in Java, is my final project for the CS50 course. It allows you to play TicTacToe against an AI with two difficulty levels: Easy and Hard. Challenge yourself to see if you can outsmart the imposible to beat AI or just enjoy a casual easy game. 
 #### Features
+
+## Code Implementation: 
+
+    The code is separated in 3 Packages: domain, logic and ui. 
+    - domain: Contains the core logic and data structures of the game. Consist of 3 clases: 
+        - AI: This Class implements the MINIMAX algorithm. It includes one constructor wich initialize all variables and two methods: move() and minimax():
+            - move() checks the difficulty and then either it calls minimax or make a random move.
+            - minimax() is a recursive algorith that calculates the best posible move acording to the state of the board. It calls itself until reaching the end of the game and returns the best score.
+        - Board: This Class creates a new board with a double array for the positions in the board and store how many moves and what moves are left. It haves 14 methods that includes: contructor, methods to add and remove moves and getters and setters.
+        - Player: Class to create the different players, each with its own symbol and the count of rounds won.
+
+    - logic: Contains the main control flow of the game. Consist of 1 class: 
+        - TicTacToe: Acts as the game controller, managing the overall game logic and interactions between the UI, the board, and the players. It contains 1 constructor and 4 main methods 
+            - startGame()
+            - playAgain()
+            - getSymbols()
+            - roundWinner().
+    - ui: This package deals with the human interaction. It contains 1 class: 
+        - UserInterface: this class handles the input and output for the game.
+    
+
 🎮 Game Modes
 
     Single Player Mode: Play against the AI with two difficulty levels:
